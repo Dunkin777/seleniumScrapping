@@ -15,7 +15,13 @@ try:
         urls.append(elem.find_element_by_tag_name("a").get_attribute("href"))
 
     for i in range(2, 207):
-        element = driver.find_element_by_class_name("paginator").find_element_by_link_text(f"{i}")
+        element = None
+        try:
+            element = driver.find_element_by_class_name("paginator").find_element_by_link_text(f"{i}")
+        except Exception as ex:
+            # if i == int(driver.find_element_by_class_name("paginator").find_element_by_class_name(" active").text):
+            #    element = driver.find_element_by_class_name("paginator").find_element_by_link_text(f"{i+1}")
+            continue
         element.click()
         time.sleep(10)
         arrayOfElements = driver.find_elements_by_class_name("sl-item-title")
